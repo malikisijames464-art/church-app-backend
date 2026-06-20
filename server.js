@@ -32,6 +32,7 @@ app.use('/api/members', require('./routes/member'));
 app.use('/api/departments', require('./routes/department'));
 app.use('/api/projects', require('./routes/project'));
 app.use('/api/messages', require('./routes/message'));
+app.use('/api/giving', require('./routes/giving'));
 app.use(
   '/department-posts',
   departmentPostRoutes

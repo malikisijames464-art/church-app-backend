@@ -34,6 +34,16 @@ req.body,
 res.json(giving);
 
 });
+// DELETE route
+router.delete('/:id', protect, adminOnly, async (req, res) => {
+  try {
+    const giving = await Giving.findByIdAndDelete(req.params.id);
+    if (!giving) return res.status(404).json({ message: 'Giving option not found' });
+    res.json({ message: 'Giving option deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 router.post(
 

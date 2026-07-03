@@ -1,27 +1,47 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const givingSchema = new mongoose.Schema({
+const givingSchema = new mongoose.Schema(
+{
+    category:{
+        type:String,
+        required:true,
+        unique:true,
+        enum:[
+            "Tithes",
+            "Offerings",
+            "Building Project",
+            "Outreach",
+            "Special Seed"
+        ]
+    },
 
-category:{
-type:String,
-required:true,
-unique:true
-},
+    mtnNumber:{
+        type:String,
+        default:""
+    },
 
-mtnNumber:String,
+    airtelNumber:{
+        type:String,
+        default:""
+    },
 
-airtelNumber:String,
+    bankName:{
+        type:String,
+        default:""
+    },
 
-accountName:String,
+    accountName:{
+        type:String,
+        default:""
+    },
 
-accountNumber:String
-
+    accountNumber:{
+        type:String,
+        default:""
+    }
 },
 {
-timestamps:true
+    timestamps:true
 });
 
-module.exports = mongoose.model(
-'Giving',
-givingSchema
-);
+module.exports = mongoose.model("Giving", givingSchema);

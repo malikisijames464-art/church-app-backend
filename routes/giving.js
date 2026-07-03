@@ -6,12 +6,35 @@ const Giving = require('../models/Giving');
 
 const { protect, adminOnly } = require('../middleware/auth');
 
-router.get('/', async(req,res)=>{
+router.get("/", async (req, res) => {
+  try {
 
-const giving = await Giving.find();
+    const defaults = [
+      "Tithes",
+      "Offerings",
+      "Building Project",
+      "Outreach",
+      "Special Seed",
+    ];
 
-res.json(giving);
+    // Create missing categories
+    for (const category of defaults) {
+      const exists = await Giving.findOne({ category });
 
+      if (!exists) {
+        await Giving.create({ category });
+      }
+    }
+
+    const giving = await Giving.find().sort({ category: 1 });
+
+    res.json(giving);
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
 });
 
 router.put('/:id',

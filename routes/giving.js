@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
         mtnNumber: "0779293045",
         airtelNumber: "0751585414",
         bankName: "Equity Bank",
-        accountName: "Tony Blair",
+        accountName: "Tonny Blair",
         accountNumber: "1035101801197",
       },
       {
@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
          mtnNumber: "0779293045",
         airtelNumber: "0751585414",
         bankName: "Equity Bank",
-        accountName: "Tony Blair",
+        accountName: "Tonny Blair",
         accountNumber: "1035101801197",
       
       },
@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
        mtnNumber: "0779293045",
         airtelNumber: "0751585414",
         bankName: "Equity Bank",
-        accountName: "Tony Blair",
+        accountName: "Tonny Blair",
         accountNumber: "1035101801197",
       },
       {
@@ -40,7 +40,7 @@ router.get("/", async (req, res) => {
     mtnNumber: "0779293045",
         airtelNumber: "0751585414",
         bankName: "Equity Bank",
-        accountName: "Tony Blair",
+        accountName: "Tonny Blair",
         accountNumber: "1035101801197",
       },
       {
@@ -48,7 +48,7 @@ router.get("/", async (req, res) => {
      mtnNumber: "0779293045",
         airtelNumber: "0751585414",
         bankName: "Equity Bank",
-        accountName: "Tony Blair",
+        accountName: "Tonny Blair",
         accountNumber: "1035101801197",
       },
     ];

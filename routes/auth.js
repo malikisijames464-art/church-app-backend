@@ -2,27 +2,41 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const { protect } = require('../middleware/auth');   // ← Import at the TOP
+const { protect } = require('../middleware/auth');
 
 const router = express.Router();
 
 // ====================== REGISTER ======================
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, phone, password, address } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !password) {
       return res.status(400).json({ 
         success: false, 
-        message: 'Name, email and password are required' 
+        message: 'Name and password are required' 
       });
     }
 
-    const existingUser = await User.findOne({ email: email.toLowerCase() });
+    if (!email && !phone) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Either email or phone number is required' 
+      });
+    }
+
+    // Check for existing user by email or phone
+    const existingUser = await User.findOne({
+      $or: [
+        email ? { email: email.toLowerCase() } : {},
+        phone ? { phone } : {}
+      ]
+    });
+
     if (existingUser) {
       return res.status(400).json({ 
         success: false, 
-        message: 'User with this email already exists' 
+        message: 'User with this email or phone already exists' 
       });
     }
 
@@ -31,9 +45,9 @@ router.post('/register', async (req, res) => {
 
     const user = await User.create({
       name,
-      email: email.toLowerCase(),
+      email: email ? email.toLowerCase() : undefined,
+      phone: phone || undefined,
       password: hashedPassword,
-      phone: phone || '',
       address: address || '',
       role: 'member'
     });
@@ -63,19 +77,25 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// ====================== LOGIN ======================
+// ====================== LOGIN (Email OR Phone) ======================
 router.post('/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { identifier, password } = req.body;   // identifier = email or phone
 
-    if (!email || !password) {
+    if (!identifier || !password) {
       return res.status(400).json({ 
         success: false, 
-        message: 'Email and password are required' 
+        message: 'Email/Phone and password are required' 
       });
     }
 
-    const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
+    // Find user by email OR phone
+    const user = await User.findOne({
+      $or: [
+        { email: identifier.toLowerCase() },
+        { phone: identifier }
+      ]
+    }).select('+password');
 
     if (!user || !user.password) {
       return res.status(401).json({ 

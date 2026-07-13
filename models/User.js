@@ -7,24 +7,27 @@ const userSchema = new mongoose.Schema({
     trim: true
   },
 
-email: {
-  type: String,
-  unique: true,
-  sparse: true,
-  default: undefined,
-  lowercase: true,
-  trim: true
-},
-
-  password: {
+  email: {
     type: String,
-    select: false,          // Never return password by default
-    minlength: 6
+    unique: true,
+    sparse: true,           // Allows null/undefined
+    default: undefined,
+    lowercase: true,
+    trim: true
   },
 
   phone: {
     type: String,
+    unique: true,
+    sparse: true,           // Allows null/undefined
     trim: true
+  },
+
+  password: {
+    type: String,
+    select: false,
+    minlength: 6,
+    required: true
   },
 
   address: {
@@ -54,10 +57,10 @@ email: {
     default: Date.now
   }
 }, {
-  timestamps: true          // Adds createdAt & updatedAt
+  timestamps: true
 });
 
-// Optional: Index for better query performance
+// Indexes for better performance
 userSchema.index({ email: 1 });
 userSchema.index({ phone: 1 });
 userSchema.index({ role: 1 });

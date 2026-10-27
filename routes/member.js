@@ -29,7 +29,7 @@ const upload = multer({
 });
 
 // ====================== ADD NEW MEMBER (No Email Required) ======================
-router.post('/', protect, upload.single('photo'), async (req, res) => {
+router.post('/', protect, adminOnly, upload.single('photo'), async (req, res) => {
   try {
     const { name, phone, address } = req.body;
 

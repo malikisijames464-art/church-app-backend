@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    sparse: true,           // Allows null/undefined
+    sparse: true,
     default: undefined,
     lowercase: true,
     trim: true
@@ -19,15 +19,16 @@ const userSchema = new mongoose.Schema({
   phone: {
     type: String,
     unique: true,
-    sparse: true,           // Allows null/undefined
+    sparse: true,
     trim: true
   },
 
+  // Optional because admin-added church members
+  // do not necessarily have login credentials yet.
   password: {
     type: String,
     select: false,
-    minlength: 6,
-    required: true
+    minlength: 6
   },
 
   address: {
@@ -60,7 +61,6 @@ const userSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Indexes for better performance
 userSchema.index({ email: 1 });
 userSchema.index({ phone: 1 });
 userSchema.index({ role: 1 });

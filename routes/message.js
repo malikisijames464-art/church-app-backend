@@ -146,7 +146,7 @@ router.post(
 );
 
 // ====================== GET ALL MESSAGES ======================
-router.get('/', protect, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const messages = await Message.find()
       .populate('postedBy', 'name photo')

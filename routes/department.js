@@ -32,7 +32,7 @@ router.post('/', protect, adminOnly, async (req, res) => {
 });
 
 // ====================== GET ALL DEPARTMENTS ======================
-router.get('/', protect, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const departments = await Department.find()
       .populate('leader', 'name email photo')

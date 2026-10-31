@@ -61,7 +61,7 @@ router.post('/', protect, adminOnly, upload.single('image'), async (req, res) =>
 });
 
 // ====================== GET ALL PROJECTS ======================
-router.get('/', protect, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const projects = await Project.find()
       .populate('department', 'name')

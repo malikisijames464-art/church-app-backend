@@ -88,7 +88,7 @@ router.post('/', protect, adminOnly, upload.single('photo'), async (req, res) =>
 });
 
 // ====================== GET ALL MEMBERS ======================
-router.get('/', protect, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const members = await User.find()
       .populate('department', 'name')

@@ -9,7 +9,7 @@ const Message = require('../models/Message');
 const router = express.Router();
 
 const MAX_VIDEO_SECONDS = 30;
-const MAX_VIDEO_BYTES = 100 * 1024 * 1024; // Cloudinary free plan limit
+const MAX_VIDEO_BYTES = 500 * 1024 * 1024; // Cloudinary free plan limit
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 const MAX_ATTACHMENTS = 5; // a video counts as one
 

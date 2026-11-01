@@ -36,7 +36,7 @@ app.use("/api/departments", require("./routes/department"));
 app.use("/api/projects", require("./routes/project"));
 app.use("/api/messages", require("./routes/message"));
 app.use("/api/giving", require("./routes/giving"));
-app.use("/api/cells", cellRoutes); // <-- NEW Cells Route
+app.use("/api/cells", cellRoutes);
 
 app.use("/department-posts", departmentPostRoutes);
 
@@ -50,10 +50,11 @@ app.get("/", (req, res) => {
 // Start Server
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+const server = app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
 
+// Allow enough time for larger video uploads
 server.requestTimeout = 15 * 60 * 1000;
 server.headersTimeout = 16 * 60 * 1000;
 server.keepAliveTimeout = 65 * 1000;

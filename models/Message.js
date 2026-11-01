@@ -1,5 +1,15 @@
 const mongoose = require('mongoose');
 
+const videoSchema = new mongoose.Schema(
+  {
+    url: { type: String, required: true },
+    thumbnail: { type: String, default: null },
+    duration: { type: Number, default: 0 }, // seconds
+    publicId: { type: String, default: null }, // for deleting from Cloudinary
+  },
+  { _id: false }
+);
+
 const messageSchema = new mongoose.Schema({
   title: String,
 
@@ -8,10 +18,15 @@ const messageSchema = new mongoose.Schema({
     default: ''
   },
 
-  // Changed from single image to array of images
   images: {
-    type: [String],     // Array of image URLs/paths
+    type: [String],
     default: []
+  },
+
+  // Optional single short video (max 30s, enforced server-side)
+  video: {
+    type: videoSchema,
+    default: null
   },
 
   postedBy: {
